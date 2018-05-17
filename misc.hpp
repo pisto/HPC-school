@@ -13,6 +13,10 @@
 template<typename T> struct catchtype;
 template<typename T, T> struct catchvalue;
 
+//pseudo get RIP
+
+template<int = 1> [[gnu::noinline]] void* getRIP(){ return __builtin_return_address(0); };
+
 //looping
 #define loop(v, m)		for(size_t v = 0, m__ = size_t(m); v < m__; v++)
 #define loopi(m)		loop(i, m)
