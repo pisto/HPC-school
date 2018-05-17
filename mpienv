@@ -3,7 +3,7 @@
 module load gnu/6.1.0
 module load openmpi/2.1.1--gnu--6.1.0
 
-export LD_LIBRARY_PATH="/galileo/home/usertrain/a08trb21/.local/lib64:$LD_LIBRARY_PATH"
-export PATH="/galileo/home/usertrain/a08trb21/.local/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/.local/lib64:$LD_LIBRARY_PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 exec "$@"
