@@ -18,6 +18,7 @@ const mpi::environment mpienv [[gnu::init_priority(101)]] (mpi::threading::multi
 const mpi::communicator mpiworld;
 const int mpiworld_coord = mpiworld.rank();
 
+//archs: all x86_64, modern CPUs, my laptop, Galileo
 [[gnu::target_clones("default","avx","arch=ivybridge","arch=haswell")]]
 auto add_arrays(float* a, const float* __restrict__ b, size_t n, double sum_max){
 	double sum = 0.0;
@@ -26,8 +27,8 @@ auto add_arrays(float* a, const float* __restrict__ b, size_t n, double sum_max)
 		constexpr const auto bunch_len = 4096;      //this is arbitrary
 		double sum_bunch = 0;
 		size_t max_i = min(n, i_base + bunch_len);
-		//uncommenti this for gcc < 6
-		//#pragma omp simd
+		//#pragma omp simd is not necessary for gcc >= 6
+		#pragma omp simd
 		for(size_t i = i_base; i < max_i; i++){
 			sum_bunch += b[i];
 			a[i] += expf(b[i]);     //generates call to libmvec with -Ofast
@@ -44,8 +45,7 @@ auto add_arrays(float* a, const float* __restrict__ b, size_t n, double sum_max)
 			if(sum > sum_max) break;
 		}
 		//rollback a[i] += expf(b[i])
-		//uncommenti this for gcc < 6
-		//#pragma omp simd
+		#pragma omp simd
 		for(size_t i = i_base + span; i < max_i; i++) a[i] -= expf(b[i]);
 		return make_tuple(sum, i_base + span);
 	}
