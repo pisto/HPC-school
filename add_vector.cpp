@@ -7,8 +7,8 @@
 
 using namespace std;
 
-//archs: all x86_64, modern CPUs with YMM registers, my laptop, Galileo
-[[gnu::target_clones("default","avx","arch=ivybridge","arch=haswell")]]
+//archs: all x86_64, my laptop, Galileo (haswell/broadwell)
+[[gnu::target_clones("default","arch=ivybridge","arch=haswell","arch=broadwell")]]
 auto add_arrays(float* a, const float* __restrict__ b, size_t n, double sum_max){
 	double sum = 0;
 	for(size_t i_base = 0; i_base < n;) {
