@@ -47,7 +47,7 @@ int add_vector_main(int argc, char** argv){
 	double sum_max;
 	{
 		using namespace boost::program_options;
-		options_description options("Options for mpibologna");
+		options_description options("Options for add_vector");
 		options.add_options()
 				("help", "show help")
 				("len", value(&len)->default_value(100000000), "vectors length")
