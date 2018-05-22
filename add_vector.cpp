@@ -65,10 +65,10 @@ int add_vector_main(int argc, char** argv){
 
 	vector<float> a(len), b(len);
 	if(!cin.read((char*)a.data(), len * sizeof(float)) || !cin.read((char*)b.data(), len * sizeof(float))) throw runtime_error("Cannot read vectors");
-	auto start = chrono::steady_clock::now();
+	measure_runtime intv;
 	auto [sum, added_elements] = add_arrays(a.data(), b.data(), len, sum_max);
-	auto elapsed = chrono::steady_clock::now() - start;
-	cout<<"sum(b) "<<sum<<" for N elements "<<added_elements<<" in "<<chrono::duration_cast<chrono::milliseconds>(elapsed).count()<<"ms"<<endl;
+	auto elapsed = intv.elapsed_msec();
+	cout<<"sum(b) "<<sum<<" for N elements "<<added_elements<<" in "<<elapsed<<"ms"<<endl;
 
 	return 0;
 

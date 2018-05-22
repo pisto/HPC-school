@@ -74,3 +74,16 @@ inline int operator>>(int ret, assertmpi_helper&& p){
 	int resultlen = 0;
 	throw MPI_error(p.place, MPI_Error_string(ret, buffer, &resultlen) ? "unknown error" : std::string(buffer, resultlen));
 }
+
+/*
+ * Time benchmark of critical sections
+ */
+
+#include <chrono>
+
+struct measure_runtime {
+	const std::chrono::time_point<std::chrono::steady_clock> start = std::chrono::steady_clock::now();
+	auto elapsed_msec() const {
+		return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start).count();
+	}
+};
