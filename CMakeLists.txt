@@ -18,5 +18,5 @@ include_directories(${MPI_INCLUDE_PATH})
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost REQUIRED mpi program_options)
 
-add_executable(mpibologna main.cpp mpienv.hpp misc.hpp add_vector.cpp)
+add_executable(mpibologna main.cpp mpienv.hpp misc.hpp add_vector.cpp nbody.cpp)
 target_link_libraries(mpibologna "-Wl,--as-needed" ${Boost_LIBRARIES} ${MPI_LIBRARIES})
